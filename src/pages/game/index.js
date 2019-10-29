@@ -1,8 +1,8 @@
 const $root = document.querySelector("#root");
 
 const $cardsWrapper = createCardsWrapper();
-const $memoryCard = createMemoryCard();
-const $memoryCardFront = createMemoryCardFront();
+const $memoryCard = createMemoryCard("img/icon-collabcode.png", "Gueio");
+const $memoryCardFront = createMemoryCard("img/icon-c.png", "Livro de C+","-front");
 
 $root.insertAdjacentElement("beforeend", $cardsWrapper);
 $cardsWrapper.insertAdjacentHTML("beforeend", $memoryCard);
