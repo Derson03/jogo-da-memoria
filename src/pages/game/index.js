@@ -7,6 +7,8 @@ const $cardsWrapper = createCardsWrapper();
 //     src: "Gueio"
 // });
 
+const createMemoryCard = memoryCard();
+
 const $memoryCardCelular = createMemoryCard({
     src: "img/icon-celular.png", 
     alt: "Imagem celular",

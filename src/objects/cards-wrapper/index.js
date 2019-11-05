@@ -18,7 +18,7 @@ function createCardsWrapper(){
         }
     `;
 
-    $head.insertBefore($style, null)
+    $head.insertBefore($style, null);
 
     // $cardsWrapper.addEventListener("click", () => {console.log("foi");});
 
