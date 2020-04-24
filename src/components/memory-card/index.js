@@ -22,11 +22,13 @@ function memoryCard(){
         position: absolute;
     }
     
-    .memory-card.-active .card{
+    .memory-card.-active .card,
+    .memory-card.-scored .card{
         display: none;
     }
 
-    .memory-card.-active .card.-front{
+    .memory-card.-active .card.-front,
+    .memory-card.-scored .card.-front{
         display: flex;
     }
     
@@ -58,7 +60,7 @@ function memoryCard(){
     $head.insertBefore($style, null);
 
     return ({nameClass, src, alt}) => `
-        <div class="memory-card -active" onClick="handleClick(this)">
+        <div class="memory-card" onClick="handleClick(this)">
             <article class="card ${nameClass}">
                 <img 
                     src="${src}"
@@ -77,8 +79,6 @@ function memoryCard(){
     `;
 };
 
-
-
 /*
 const createMemoryCardFront = () =>`
     <article class="memory-card -front">
@@ -92,4 +92,42 @@ const createMemoryCardFront = () =>`
 `;
 */
 
-const  handleClick = $component => $component.classList.toggle("-active");
+const handleClick = $component => {
+    if(!$component.classList.contains("-active")){    
+        activeMemoryCard($component);
+        checkSure();
+    }
+}; 
+
+function activeMemoryCard($component){
+    if(qtdActiveMemoryCard < 2){
+        $component.classList.add("-active")
+    }
+}
+
+function checkSure(){
+    if(qtdActiveMemoryCard == 1){
+        const $activeMemoryCards = document.querySelectorAll(".memory-card.-active");
+
+        if($activeMemoryCards[0].querySelector(".-front .icon").getAttribute("src") == $activeMemoryCards[1].querySelector(".-front .icon").getAttribute("src") ){
+            store.score++;
+
+            console.log("Score: ", store.score);
+            
+            $activeMemoryCards.forEach($memoryCard => {
+                $memoryCard.classList.add("-scored");
+                $memoryCard.classList.remove("-active");
+            });
+        }else{
+            setTimeout(() => {
+                $activeMemoryCards.forEach($memorycard => {
+                    $memorycard.classList.remove("-active");
+                });
+
+                qtdActiveMemoryCard = 0;
+
+            },1500);
+        }
+
+    }
+}
